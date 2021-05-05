@@ -6,7 +6,7 @@ using Assets.Scripts.Interfaces;
 
 namespace Assets.Scripts
 {
-    public class HiveManager : Singleton<HiveManager>, Tickable
+    public class HiveManager : Singleton<HiveManager>, ITickable
     {
         public Image Radial;
         public int HiveCount = 1;
