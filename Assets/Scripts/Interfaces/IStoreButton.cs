@@ -14,6 +14,10 @@ namespace Assets.Scripts.Interfaces
         public abstract int Cost { get; }
         public abstract int Level { get; }
         void Buy();
+
+        /// <summary>
+        /// Updates the text on the button
+        /// </summary>
         void UpdateText();
 
     }

@@ -27,6 +27,10 @@ namespace Assets.Scripts.Helpers
             go = Instantiate(ButtonPrefab);
             btnData = go.AddComponent<BuyHiveButton>();
             BuildButton(go, btnData);
+
+            go = Instantiate(ButtonPrefab);
+            btnData = go.AddComponent<BuyMeaderyButton>();
+            BuildButton(go, btnData);
         }
 
         private void BuildButton(GameObject go, StoreButtonBase btnData)

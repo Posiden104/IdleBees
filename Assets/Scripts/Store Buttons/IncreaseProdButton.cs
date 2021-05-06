@@ -18,6 +18,7 @@ namespace Assets.Scripts.Store_Buttons
             {
                 HiveManager.Instance.AddProductivity();
                 Cost += HiveManager.Instance.Productivity * 10;
+                Level++;
                 UpdateText();
             }
         }

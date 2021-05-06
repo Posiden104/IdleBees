@@ -6,7 +6,7 @@ namespace Assets.Scripts
 {
     public class CashManager : Singleton<CashManager>
     {
-        public decimal Cash = 0m;
+        public decimal Cash = 10000m;
 
         private void Start()
         {

@@ -18,6 +18,7 @@ namespace Assets.Scripts.Store_Buttons
             {
                 HiveManager.Instance.AddHive();
                 Cost += HiveManager.Instance.HiveCount * 100;
+                Level++;
                 UpdateText();
             }
         }

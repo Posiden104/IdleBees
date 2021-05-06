@@ -6,12 +6,17 @@ namespace Assets.Scripts.Helpers
 {
     public class TextManager : Singleton<TextManager>
     {
+        // Buttons
         public Text AddHoneyTxt;
         public Text SellHoneyTxt;
-        public Text IncreaseProductivityTxt;
+        
+        // Left Labels
         public Text CashTxt;
         public Text HoneyTxt;
         public Text BeehiveTxt;
-        public Text BuyBeehiveTxt;
+        
+        // Other
+        public Text InventoryText;
+
     }
 }

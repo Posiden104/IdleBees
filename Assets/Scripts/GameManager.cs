@@ -10,11 +10,11 @@ namespace Assets.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
-        public int Hives;
         public float TickTimer;
 
         private float elapsed = 0f;
         private Action TickMethods;
+        private Action AfterTickMethods;
 
         public float TickProgress { get { return elapsed / TickTimer; } }
 
@@ -32,16 +32,25 @@ namespace Assets.Scripts
             {
                 elapsed = elapsed % TickTimer;
                 TickMethods();
+                AfterTickMethods();
             }
         }
 
-        public void RegisterTickMethod(Action act) 
+        public void RegisterTickMethod(Action act)
         {
-            TickMethods += act;   
+            TickMethods += act;
         }
-        public void UnRegisterTickMethod(Action act) 
+        public void UnRegisterTickMethod(Action act)
         {
             TickMethods -= act;
+        }
+        public void RegisterAfterTickMethod(Action act)
+        {
+            AfterTickMethods += act;
+        }
+        public void UnRegisterAfterTickMethod(Action act)
+        {
+            AfterTickMethods -= act;
         }
     }
 }
