@@ -41,6 +41,10 @@ namespace Assets.Scripts.Helpers
             InsertButton(go, btnData);
 
             go = Instantiate(ButtonPrefab);
+            btnData = go.AddComponent<BuyChapstickButton>();
+            InsertButton(go, btnData);
+
+            go = Instantiate(ButtonPrefab);
             btnData = go.AddComponent<BuyMeaderyButton>();
             InsertButton(go, btnData);
 

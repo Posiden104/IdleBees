@@ -54,7 +54,7 @@ namespace Assets.Scripts
 
         public void MakeHoneyButtonHandler()
         {
-            HoneyManager.Instance.Add(ClickPower);
+            HoneyManager.Instance.AddHoney(ClickPower);
         }
 
         public void SellHoneyButtonHandler()

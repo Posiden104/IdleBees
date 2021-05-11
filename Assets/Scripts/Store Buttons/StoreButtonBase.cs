@@ -12,7 +12,6 @@ namespace Assets.Scripts.Store_Buttons
 
         public abstract string Name { get; set; }
         public abstract int Cost { get; protected set; }
-        public abstract int Level { get; protected set; }
 
         public abstract void Buy();
         public abstract void UpdateText();

@@ -11,19 +11,17 @@ namespace Assets.Scripts.Store_Buttons
     {
         public override string Name { get; set; } = "BuyMeaderyBtn";
         public override int Cost { get; protected set; } = 1000;
-        public override int Level { get; protected set; } = 0;
        
 
         public override void Buy()
         {
             if (CashManager.Instance.RemoveCash(Cost))
             {
-                Cost += Level * 1000;
-                Level++;
                 MeadManager.Instance.Upgrade();
+                Cost += MeadManager.Instance.Level * 1000;
                 UpdateText();
 
-                if(Level == 1)
+                if(MeadManager.Instance.IsActive == false)
                 {
                     MeadManager.Instance.Activate();
                 }
@@ -32,7 +30,7 @@ namespace Assets.Scripts.Store_Buttons
 
         public override void UpdateText()
         {
-            ButtonTxt.text = $"{Constants.BuyMeaderyText} ({Level}) - ${Cost}";
+            ButtonTxt.text = $"{Constants.BuyMeaderyText} ({MeadManager.Instance.Level}) - ${Cost}";
         }
 
     }

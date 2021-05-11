@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Interfaces
 {
-    public interface IProduct
+    public interface IProduct : ITickable
     {
         /// <summary>
-        /// How much you have
+        /// How much honey is stored
         /// </summary>
-        public int Supply { get; }
+        public int HoneySupply { get; }
 
         /// <summary>
         /// How much the product sells for
@@ -28,22 +28,20 @@ namespace Assets.Scripts.Interfaces
         /// </summary>
         public int Level { get; }
 
+        /// <summary>
+        /// The yield per level of the product per tick
+        /// </summary>
+        public int YieldPerLevel { get; }
 
         /// <summary>
-        /// The yield of the product per tick
+        /// If the product is active or not
         /// </summary>
-        public int Yield { get; }
+        public bool IsActive { get; }
 
         /// <summary>
-        /// Sells all of product
+        /// The amount of the product produced per tick
         /// </summary>
-        void SellAll();
-
-        /// <summary>
-        /// Adds an amount of the product to inventory
-        /// </summary>
-        /// <param name="amt">Amount to be added</param>
-        void Add(int amt);
+        public float YieldPerTick{ get; }
 
         /// <summary>
         /// Activates the product to show in Inventory and starts it's Tick
@@ -54,5 +52,17 @@ namespace Assets.Scripts.Interfaces
         /// Upgrades the product
         /// </summary>
         void Upgrade();
+
+        /// <summary>
+        /// Gets the amount of honey this products wants per tick. 
+        /// </summary>
+        /// <returns>Amount of honey needed per tick</returns>
+        int GetRequestedHoney();
+
+        /// <summary>
+        /// Stores honey to be used when theres enough to produce the product
+        /// </summary>
+        /// <param name="amt">Amount of honey to be stored</param>
+        void StoreHoney(int amt);
     }
 }

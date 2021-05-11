@@ -8,6 +8,7 @@ namespace Assets.Scripts.Helpers
         // Store - Purchase
         public static string BuyBeehiveText = "Beehive";
         public static string BuyMeaderyText = "Meadery";
+        public static string BuyChapstickText = "Chapstick Plant";
         public static string BuyCombText = "Produce Honeycomb";
 
         // Store - Upgrades
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Helpers
         // Product Inventory Labels
         public static string HoneyLabel = "Honey";
         public static string MeadLabel = "Mead";
+        public static string ChapstickLabel = "Chapstick";
         public static string CombLabel = "Honeycomb";
     }
 }

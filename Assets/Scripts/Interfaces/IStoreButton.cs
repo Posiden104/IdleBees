@@ -12,7 +12,6 @@ namespace Assets.Scripts.Interfaces
     {
         public abstract string Name { get; }
         public abstract int Cost { get; }
-        public abstract int Level { get; }
         void Buy();
 
         /// <summary>

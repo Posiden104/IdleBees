@@ -29,10 +29,14 @@ namespace Assets.Scripts
 
         public void UpdateText()
         {
-            InventoryText.text = "Inventory\n";
+            InventoryText.text = "Production Per Tick\n";
             foreach (var p in ProductList)
             {
-                InventoryText.text += $"{p.InventoryLabel}: {p.Supply}\n";
+                InventoryText.text += $"{p.InventoryLabel}: {p.YieldPerTick} / {p.YieldPerLevel * p.Level}";
+                if (p.InventoryLabel != Constants.HoneyLabel) {
+                    InventoryText.text += $" (${p.YieldPerTick * p.Value})";
+                }
+                InventoryText.text += "\n";
             }
         }
 

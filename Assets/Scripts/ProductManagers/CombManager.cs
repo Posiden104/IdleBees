@@ -5,9 +5,9 @@ using Assets.Scripts.Interfaces;
 
 namespace Assets.Scripts.ProductManagers
 {
-    public class CombManager : Singleton<CombManager>, IProduct, ITickable
+    public class CombManager : Singleton<CombManager>, IProduct
     {
-        public int Supply { get; private set; }
+        public int HoneySupply { get; private set; }
 
         public int Value { get; private set; } = 1;
 
@@ -15,7 +15,9 @@ namespace Assets.Scripts.ProductManagers
 
         public int Level { get; private set; }
 
-        public int Yield { get; private set; }
+        public int YieldPerLevel { get; private set; }
+        public bool IsActive { get; private set; }
+        public float YieldPerTick { get; private set; }
 
 
         private int TickTimer = 10;
@@ -23,20 +25,11 @@ namespace Assets.Scripts.ProductManagers
 
         public void Activate()
         {
-            GameManager.Instance.RegisterTickMethod(Tick);
+            GameManager.Instance.RegisterAfterTickMethod(Tick);
             InventoryManager.Instance.AddProduct(this);
             TickTimer = 10;
-        }
-
-        public void Add(int amt)
-        {
-            Supply += amt;
-        }
-
-        public void SellAll()
-        {
-            CashManager.Instance.AddCash(Supply * Value);
-            Supply = 0;
+            IsActive = true;
+            YieldPerLevel = HoneyManager.Instance.Level;
         }
 
         public void Upgrade()
@@ -46,12 +39,21 @@ namespace Assets.Scripts.ProductManagers
 
         public void Tick()
         {
+            YieldPerLevel = HoneyManager.Instance.Level;
             TickCounter++;
+            YieldPerTick = (float)((float)YieldPerLevel * Level) / TickTimer;
             if (TickCounter >= TickTimer)
             {
-                Add(Level);
+                CashManager.Instance.AddCash(YieldPerLevel * Level * Value);
                 TickCounter = 0;
             }
+        }
+
+        public int GetRequestedHoney() => 0;
+        
+        public void StoreHoney(int amt)
+        {
+            Debug.LogError($"CombManager - StoreHoney called. This is not needed for this product.");
         }
     }
 }

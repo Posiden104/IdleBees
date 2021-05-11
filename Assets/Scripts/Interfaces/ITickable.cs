@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Interfaces
 {
-    interface ITickable
+    public interface ITickable
     {
         void Tick();
     }

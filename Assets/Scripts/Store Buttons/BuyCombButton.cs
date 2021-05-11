@@ -11,18 +11,17 @@ namespace Assets.Scripts.Store_Buttons
     {
         public override string Name { get; set; } = "BuyCombBtn";
         public override int Cost { get; protected set; } = 1000;
-        public override int Level { get; protected set; }
 
         public override void Buy()
         {
             if (CashManager.Instance.RemoveCash(Cost))
             {
-                Cost += Level * 1000;
-                Level++;
                 CombManager.Instance.Upgrade();
-                UpdateText();
+                Cost += CombManager.Instance.Level * 1000;
+                ButtonTxt.text = $"{Constants.BuyCombText} - Bought";
+                Btn.interactable = false;
 
-                if(Level == 1)
+                if (CombManager.Instance.IsActive == false)
                 {
                     CombManager.Instance.Activate();
                 }
@@ -31,7 +30,7 @@ namespace Assets.Scripts.Store_Buttons
 
         public override void UpdateText()
         {
-            ButtonTxt.text = $"{Constants.BuyCombText} ({Level}) - ${Cost}";
+            ButtonTxt.text = $"{Constants.BuyCombText} ({CombManager.Instance.Level}) - ${Cost}";
         }
     }
 }

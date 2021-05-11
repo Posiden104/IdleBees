@@ -9,34 +9,27 @@ namespace Assets.Scripts.ProductManagers
     {
         public string InventoryLabel { get; } = Constants.MeadLabel;
 
-        public int Supply { get; private set; }
+        public int HoneySupply { get; private set; }
 
         // Tied to value of honey because this is a secondary product
         public int Value { get; private set; }
 
-        public int Level { get; set; }
-        public int Yield { get; private set; } = 1;
+        public int Level { get; private set; }
+        public int YieldPerLevel { get; private set; } = 1;
+        public bool IsActive { get; private set; }
+        public float YieldPerTick { get; private set; }
+        private int HoneyNeededPerTick { get => ConversionAmount * Level; }
 
         private int ConversionAmount = 1000;
 
         public void Activate()
         {
-            GameManager.Instance.RegisterTickMethod(Tick);
+            GameManager.Instance.RegisterAfterTickMethod(Tick);
             InventoryManager.Instance.AddProduct(this);
 
             ConversionAmount = 1000;
             Value = 1000 * HoneyManager.Instance.Value;
-        }
-
-        public void Add(int amt)
-        {
-            Supply += amt;
-        }
-
-        public void SellAll()
-        {
-            CashManager.Instance.AddCash(Supply * Value);
-            Supply = 0;
+            IsActive = true;
         }
 
         public void Upgrade()
@@ -46,11 +39,22 @@ namespace Assets.Scripts.ProductManagers
 
         public void Tick()
         {
-            if ((HoneyManager.Instance.Supply * Level) > (ConversionAmount * Level))
+            if ((HoneySupply * Level) > (HoneyNeededPerTick))
             {
-                HoneyManager.Instance.RemoveHoney(ConversionAmount * Level);
-                Add(Yield * Level);
+                HoneySupply -= HoneyNeededPerTick;
+                CashManager.Instance.AddCash(YieldPerLevel * Level * Value);
             }
+        }
+
+        public int GetRequestedHoney()
+        {
+            return HoneyNeededPerTick;
+        }
+
+        public void StoreHoney(int amt)
+        {
+            HoneySupply += amt;
+            YieldPerTick = (float)((float)amt / HoneyNeededPerTick) * YieldPerLevel * Level;
         }
     }
 }

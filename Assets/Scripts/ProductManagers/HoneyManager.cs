@@ -7,43 +7,46 @@ using Assets.Scripts.Interfaces;
 
 namespace Assets.Scripts.ProductManagers
 {
-    public class HoneyManager : Singleton<HoneyManager>, IProduct, ITickable
+    public class HoneyManager : Singleton<HoneyManager>, IProduct
     {
-        public int Supply { get; private set; } = 100000;
-        public int Value { get; private set; } = 1000;
+        public int HoneySupply { get; private set; } = 100000;
+        public int Value { get; private set; } = 1;
         public string InventoryLabel { get; } = Constants.HoneyLabel;
-        public int Level { get; private set; } = 1;
-        public int Yield { get; private set; } = 1;
+        public int Level { get; private set; } = 100;
+        public int YieldPerLevel { get; private set; } = 10;
+        public bool IsActive { get; private set; } = true;
+        public float YieldPerTick { get; private set; }
+
 
         public void Start()
         {
             InventoryManager.Instance.AddProduct(this);
-            GameManager.Instance.RegisterTickMethod(Tick);
+            GameManager.Instance.RegisterAfterTickMethod(Tick);
             UpdateText();
         }
 
-        public void Add(int amt)
+        public void AddHoney(int amt)
         {
-            Supply += amt;
+            HoneySupply += amt;
             UpdateText();
         }
 
         public void RemoveHoney(int amt = 1)
         {
-            Supply -= amt;
+            HoneySupply -= amt;
             UpdateText();
         }
 
         public void SellAll()
         {
-            CashManager.Instance.AddCash(Supply * Value);
-            RemoveHoney(Supply);
+            CashManager.Instance.AddCash(HoneySupply * Value);
+            RemoveHoney(HoneySupply);
         }
 
         private void UpdateText()
         {
-            TextManager.Instance.HoneyTxt.text = $"Honey: {Supply}";
-            TextManager.Instance.BeehiveTxt.text = $"Beehives: {Level} ({Yield})";
+            TextManager.Instance.HoneyTxt.text = $"Honey: {HoneySupply}";
+            TextManager.Instance.BeehiveTxt.text = $"Beehives: {Level} ({YieldPerLevel})";
         }
 
         public void Activate()
@@ -59,13 +62,26 @@ namespace Assets.Scripts.ProductManagers
 
         public void Upgrade()
         {
-            Yield++;
+            YieldPerLevel++;
             UpdateText();
         }
 
         public void Tick()
         {
-            Supply += Level * Yield;
+            UpdateText();
+        }
+
+        public int GetRequestedHoney() => 0;
+
+        public int GetHoneyProduced()
+        {
+            return Level * YieldPerLevel;
+        }
+
+        public void StoreHoney(int amt)
+        {
+            HoneySupply += amt;
+            YieldPerTick = amt;
             UpdateText();
         }
     }

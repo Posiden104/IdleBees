@@ -11,14 +11,12 @@ namespace Assets.Scripts.Store_Buttons
     {
         public override string Name { get; set; } = "IncProdBtn";
         public override int Cost { get; protected set; } = 10;
-        public override int Level { get; protected set; } = 1;
 
         public override void Buy()
         {
             if (CashManager.Instance.RemoveCash(Cost))
             {
-                Cost += HoneyManager.Instance.Yield * 10;
-                Level++;
+                Cost += HoneyManager.Instance.YieldPerLevel * 10;
                 HoneyManager.Instance.Upgrade();
                 UpdateText();
             }
@@ -26,7 +24,7 @@ namespace Assets.Scripts.Store_Buttons
 
         public override void UpdateText()
         {
-            ButtonTxt.text = $"{Constants.IncreaseProductivityText} ({HoneyManager.Instance.Yield}) - ${Cost}";
+            ButtonTxt.text = $"{Constants.IncreaseProductivityText} ({HoneyManager.Instance.YieldPerLevel}) - ${Cost}";
         }
     }
 }
