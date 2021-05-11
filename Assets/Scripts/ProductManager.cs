@@ -24,9 +24,9 @@ namespace Assets.Scripts
         {
             Products = new IProduct[(int)ProductEnum.NumberOfProducts];
 
-            Products[(int)ProductEnum.HONEY] = gameObject.AddComponent<HoneyManager>();
-            Products[(int)ProductEnum.MEAD] = gameObject.AddComponent<MeadManager>();
-            Products[(int)ProductEnum.COMB] = gameObject.AddComponent<CombManager>();
+            Products[(int)ProductEnum.HONEY] = HoneyManager.Instance;
+            Products[(int)ProductEnum.MEAD] = MeadManager.Instance;
+            Products[(int)ProductEnum.COMB] = CombManager.Instance;
 
         }
         

@@ -20,6 +20,6 @@ namespace Assets.Scripts.Helpers
         // Product Inventory Labels
         public static string HoneyLabel = "Honey";
         public static string MeadLabel = "Mead";
-        public static string CombLabel = "Homeycomb";
+        public static string CombLabel = "Honeycomb";
     }
 }
