@@ -24,6 +24,7 @@ namespace Assets.Scripts
         public void AddProduct(IProduct product)
         {
             ProductList = ProductList.Append(product);
+            UpdateText();
         }
 
         public void UpdateText()

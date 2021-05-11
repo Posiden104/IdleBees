@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Interfaces;
 using UnityEngine.UI;
+using Assets.Scripts.ProductManagers;
 
 namespace Assets.Scripts.Store_Buttons
 {
@@ -16,16 +17,16 @@ namespace Assets.Scripts.Store_Buttons
         {
             if (CashManager.Instance.RemoveCash(Cost))
             {
-                HiveManager.Instance.AddProductivity();
-                Cost += HiveManager.Instance.Productivity * 10;
+                Cost += HoneyManager.Instance.Yield * 10;
                 Level++;
+                HoneyManager.Instance.Upgrade();
                 UpdateText();
             }
         }
 
         public override void UpdateText()
         {
-            ButtonTxt.text = $"{Constants.IncreaseProductivityText} ({HiveManager.Instance.Productivity}) - ${Cost}";
+            ButtonTxt.text = $"{Constants.IncreaseProductivityText} ({HoneyManager.Instance.Yield}) - ${Cost}";
         }
     }
 }

@@ -23,6 +23,36 @@ namespace Assets.Scripts.Interfaces
         /// </summary>
         public string InventoryLabel { get; }
 
-        void Sell();
+        /// <summary>
+        /// The upgrade level of the product
+        /// </summary>
+        public int Level { get; }
+
+
+        /// <summary>
+        /// The yield of the product per tick
+        /// </summary>
+        public int Yield { get; }
+
+        /// <summary>
+        /// Sells all of product
+        /// </summary>
+        void SellAll();
+
+        /// <summary>
+        /// Adds an amount of the product to inventory
+        /// </summary>
+        /// <param name="amt">Amount to be added</param>
+        void Add(int amt);
+
+        /// <summary>
+        /// Activates the product to show in Inventory and starts it's Tick
+        /// </summary>
+        void Activate();
+
+        /// <summary>
+        /// Upgrades the product
+        /// </summary>
+        void Upgrade();
     }
 }

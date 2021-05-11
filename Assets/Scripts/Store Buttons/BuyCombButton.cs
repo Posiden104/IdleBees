@@ -7,12 +7,11 @@ using Assets.Scripts.ProductManagers;
 
 namespace Assets.Scripts.Store_Buttons
 {
-    public class BuyMeaderyButton : StoreButtonBase
+    public class BuyCombButton : StoreButtonBase
     {
-        public override string Name { get; set; } = "BuyMeaderyBtn";
+        public override string Name { get; set; } = "BuyCombBtn";
         public override int Cost { get; protected set; } = 1000;
-        public override int Level { get; protected set; } = 0;
-       
+        public override int Level { get; protected set; }
 
         public override void Buy()
         {
@@ -20,20 +19,19 @@ namespace Assets.Scripts.Store_Buttons
             {
                 Cost += Level * 1000;
                 Level++;
-                MeadManager.Instance.Upgrade();
+                CombManager.Instance.Upgrade();
                 UpdateText();
 
                 if(Level == 1)
                 {
-                    MeadManager.Instance.Activate();
+                    CombManager.Instance.Activate();
                 }
             }
         }
 
         public override void UpdateText()
         {
-            ButtonTxt.text = $"{Constants.BuyMeaderyText} ({Level}) - ${Cost}";
+            ButtonTxt.text = $"{Constants.BuyCombText} ({Level}) - ${Cost}";
         }
-
     }
 }

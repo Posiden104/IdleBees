@@ -14,26 +14,52 @@ namespace Assets.Scripts.Helpers
     {
         public GameObject StoreScroller_Content;
         public GameObject ButtonPrefab;
+        public GameObject HeaderPrefab;
+        public GameObject SpacerPrefab;
+
+        private int SpacerCount = 0;
 
         void Start()
+        {
+            InsertHeader("Purchase");
+            BuildPurchaseButtons();
+
+            InsertSpacer();
+
+            InsertHeader("Upgrades");
+            BuildUpgradeButtons();
+
+        }
+
+        private void BuildPurchaseButtons()
         {
             GameObject go;
             StoreButtonBase btnData;
 
-            go = Instantiate(ButtonPrefab); 
-            btnData = go.AddComponent<IncreaseProdButton>();
-            BuildButton(go, btnData);
-
             go = Instantiate(ButtonPrefab);
             btnData = go.AddComponent<BuyHiveButton>();
-            BuildButton(go, btnData);
+            InsertButton(go, btnData);
 
             go = Instantiate(ButtonPrefab);
             btnData = go.AddComponent<BuyMeaderyButton>();
-            BuildButton(go, btnData);
+            InsertButton(go, btnData);
+
+            go = Instantiate(ButtonPrefab);
+            btnData = go.AddComponent<BuyCombButton>();
+            InsertButton(go, btnData);
         }
 
-        private void BuildButton(GameObject go, StoreButtonBase btnData)
+        private void BuildUpgradeButtons()
+        {
+            GameObject go;
+            StoreButtonBase btnData;
+
+            go = Instantiate(ButtonPrefab);
+            btnData = go.AddComponent<IncreaseProdButton>();
+            InsertButton(go, btnData);
+        }
+
+        private void InsertButton(GameObject go, StoreButtonBase btnData)
         {
             go.SetActive(true);
             go.transform.SetParent(StoreScroller_Content.transform);
@@ -42,6 +68,24 @@ namespace Assets.Scripts.Helpers
             btn.onClick.AddListener(delegate { btnData.Buy(); });
             go.name = btnData.Name;
             btnData.UpdateText();
+        }
+
+        private void InsertHeader(string headerText)
+        {
+            GameObject go = Instantiate(HeaderPrefab);
+            go.SetActive(true);
+            go.transform.SetParent(StoreScroller_Content.transform);
+            go.GetComponentInChildren<Text>().text = headerText;
+            go.name = $"{headerText}_Header";
+        }
+
+        private void InsertSpacer()
+        {
+            GameObject go = Instantiate(SpacerPrefab);
+            go.SetActive(true);
+            go.transform.SetParent(StoreScroller_Content.transform);
+            go.name = $"storeSpacer_{SpacerCount}";
+            SpacerCount++;
         }
     }
 }

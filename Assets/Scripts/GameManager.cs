@@ -1,5 +1,6 @@
 using Assets.Scripts;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.ProductManagers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Assets.Scripts
     public class GameManager : Singleton<GameManager>
     {
         public float TickTimer;
+        public int ClickPower = 1;
+        public Image Radial;
 
         private float elapsed = 0f;
         private Action TickMethods;
@@ -18,21 +21,17 @@ namespace Assets.Scripts
 
         public float TickProgress { get { return elapsed / TickTimer; } }
 
-        private void Start()
-        {
-            // Register all methods to call on tick
-            RegisterTickMethod(HiveManager.Instance.Tick);
-        }
-
         // Update is called once per frame
         void Update()
         {
             elapsed += Time.deltaTime;
+
+            Radial.fillAmount = TickProgress;
             if (elapsed >= TickTimer)
             {
-                elapsed = elapsed % TickTimer;
-                TickMethods();
-                AfterTickMethods();
+                elapsed %= TickTimer;
+                TickMethods?.Invoke();
+                AfterTickMethods?.Invoke();
             }
         }
 
@@ -51,6 +50,16 @@ namespace Assets.Scripts
         public void UnRegisterAfterTickMethod(Action act)
         {
             AfterTickMethods -= act;
+        }
+
+        public void MakeHoneyButtonHandler()
+        {
+            HoneyManager.Instance.Add(ClickPower);
+        }
+
+        public void SellHoneyButtonHandler()
+        {
+            HoneyManager.Instance.SellAll();
         }
     }
 }

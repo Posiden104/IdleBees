@@ -5,10 +5,13 @@ namespace Assets.Scripts.Helpers
 {
     public class Constants
     {
-        // Store
+        // Store - Purchase
+        public static string BuyBeehiveText = "Beehive";
+        public static string BuyMeaderyText = "Meadery";
+        public static string BuyCombText = "Produce Honeycomb";
+
+        // Store - Upgrades
         public static string IncreaseProductivityText = "Better Bees!";
-        public static string BuyBeehiveText = "Buy Beehive";
-        public static string BuyMeaderyText = "Buy Meadery";
 
         // Misc
         public static string AddHoneyText = "Make Honey";
@@ -17,5 +20,6 @@ namespace Assets.Scripts.Helpers
         // Product Inventory Labels
         public static string HoneyLabel = "Honey";
         public static string MeadLabel = "Mead";
+        public static string CombLabel = "Homeycomb";
     }
 }
